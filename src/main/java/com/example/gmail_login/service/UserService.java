@@ -6,8 +6,11 @@ import com.example.gmail_login.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
+
 @Service
 public class UserService {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -17,6 +20,11 @@ public class UserService {
 
     public User authenticateUser(String username, String password) {
         return userRepository.findByUsernameAndPassword(username, password);
+    }
+
+    public User getUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("User not found"));
     }
 
     public User findByUsername(String username) {

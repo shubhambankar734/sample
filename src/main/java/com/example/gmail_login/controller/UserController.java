@@ -14,6 +14,7 @@ public class UserController {
     private UserService userService;
 
     // Endpoint to save a new user
+    @CrossOrigin(origins = "*")
     @PostMapping("/save")
     public ResponseEntity<User> saveUser(@RequestBody User user) {
         User savedUser = userService.saveUser(user);
@@ -21,6 +22,7 @@ public class UserController {
     }
 
     // Endpoint to authenticate a user by username and password
+    @CrossOrigin(origins = "*")
     @GetMapping("/authenticate")
     public ResponseEntity<User> authenticateUser(@RequestParam String username, @RequestParam String password) {
         User user = userService.authenticateUser(username, password);
@@ -32,6 +34,7 @@ public class UserController {
     }
 
     // Endpoint to handle forgotten password scenario
+    @CrossOrigin(origins = "*")
     @GetMapping("/forgot-password")
     public ResponseEntity<String> forgotPassword(@RequestParam String username ) {
         User user = userService.findByUsername(username);
@@ -42,5 +45,12 @@ public class UserController {
         } else {
             return ResponseEntity.status(404).body("User not found.");
         }
+    }
+
+    @GetMapping("/{id}")
+    @CrossOrigin(origins = "*")
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        User user = userService.getUserById(id);
+        return ResponseEntity.ok(user);
     }
 }
