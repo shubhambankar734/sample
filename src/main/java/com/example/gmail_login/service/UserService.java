@@ -19,7 +19,7 @@ public class UserService {
     }
 
     public User authenticateUser(String username, String password) {
-        return userRepository.findByUsernameAndPassword(username, password);
+        return userRepository.findByNameAndPassword(username, password);
     }
 
     public User getUserById(Long id) {
@@ -28,7 +28,7 @@ public class UserService {
     }
 
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return userRepository.findByName(username);
     }
 }
 
